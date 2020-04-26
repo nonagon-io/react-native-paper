@@ -48,6 +48,10 @@ type Props = React.ComponentProps<typeof Surface> & {
    */
   icon?: IconSource;
   /**
+   * Icon size.
+   */
+  iconSize?: number;
+  /**
    * Whether the button is disabled. A disabled button is greyed out and `onPress` is not called on touch.
    */
   disabled?: boolean;
@@ -72,6 +76,11 @@ type Props = React.ComponentProps<typeof Surface> & {
    * Use this prop to apply custom height and width.
    */
   contentStyle?: StyleProp<ViewStyle>;
+  /**
+   * Style of button's icon.
+   * Use this prop to apply custom icon style.
+   */
+  iconStyle?: StyleProp<ViewStyle>;
   style?: StyleProp<ViewStyle>;
   /**
    * Style for the button text.
@@ -163,6 +172,7 @@ class Button extends React.Component<Props, State> {
       dark,
       loading,
       icon,
+      iconSize,
       color: buttonColor,
       children,
       uppercase,
@@ -171,6 +181,7 @@ class Button extends React.Component<Props, State> {
       style,
       theme,
       contentStyle,
+      iconStyle,
       labelStyle,
       testID,
       ...rest
@@ -278,8 +289,8 @@ class Button extends React.Component<Props, State> {
         >
           <View style={[styles.content, contentStyle]}>
             {icon && loading !== true ? (
-              <View style={styles.icon}>
-                <Icon source={icon} size={16} color={textColor} />
+              <View style={[styles.icon, iconStyle]}>
+                <Icon source={icon} size={iconSize || 16} color={textColor} />
               </View>
             ) : null}
             {loading ? (
